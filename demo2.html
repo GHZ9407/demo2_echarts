@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo2</title>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="main" style="width: 770px;height: 642px;"></div>
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+        let value = 4399;
+        let title = '资产总数';
+        let int = value.toFixed(2).split('.')[0];
+
+        var trafficWay = [{
+            name: '火车',
+            value: 95
+        }, {
+            name: '飞机',
+            value: 2.5
+        }, {
+            name: '客车',
+            value: 2.5
+        }];
+
+        var data = [];
+        var color = ['#006ced', '#ff0000', '#ff0000', '#ffe000', '#ffa800', '#ff5b00', '#ff3000']
+        for (var i = 0; i < trafficWay.length; i++) {
+            data.push({
+                value: trafficWay[i].value,
+                itemStyle: {
+                    normal: {
+                        borderWidth: 1,
+                        shadowBlur: 20,
+                        borderColor: color[i],
+                        shadowColor: color[i]
+                    }
+                }
+            }, {
+                value: 2,
+                name: '',
+                itemStyle: {
+                    normal: {
+                        label: {
+                            show: false
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        color: 'rgba(0, 0, 0, 0)',
+                        borderColor: 'rgba(0, 0, 0, 0)',
+                        borderWidth: 0
+                    }
+                }
+            });
+        }
+        var seriesOption = [{
+            type: 'pie',
+            zlevel: 1,
+            silent: true,
+            radius: ['48%', '47%'],
+            label: {
+                normal: {
+                    show: false
+                },
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data: _pie1()
+        }, {
+            name: '',
+            type: 'pie',
+            zlevel: 2,
+            startAngle: '60',
+            clockWise: false,
+            radius: [139, 136],
+            hoverAnimation: false,
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: false,
+                        position: 'outside',
+                        color: '#ddd'
+                    },
+                    labelLine: {
+                        length: 30,
+                        length2: 100,
+                        show: false,
+                        color: '#00ffff'
+                    }
+                }
+            },
+            data: data
+        }, {
+            type: 'pie',
+            zlevel: 3,
+            silent: true,
+            startAngle: '120',
+            radius: ['38%', '37%'],
+            label: {
+                normal: {
+                    show: false
+                },
+            },
+            labelLine: {
+                normal: {
+                    show: false
+                }
+            },
+            data: _pie3()
+        }, {
+            type: 'gauge',
+            name: '业务指标',
+            radius: '33%',
+            startAngle: '0',
+            endAngle: '-359.99',
+            splitNumber: '25',
+            pointer: {
+                show: false
+            },
+            title: {
+                show: false
+            },
+            detail: {
+                show: false
+            },
+            data: [{
+                value: 95,
+                name: '完成率'
+            }],
+            axisLine: {
+                lineStyle: {
+                    color: [
+                        [0.12, 'rgb(38, 108, 212)'],
+                        [0.25, 'rgb(61, 174, 240)'],
+                        [0.35, 'rgb(61, 202, 155)'],
+                        [0.49, '#fff'],
+                        [0.9, "blue"],
+                        [1, "rgb(38, 108, 212)"]
+                    ],
+                    width: 10,
+                    opacity: 1
+                }
+            },
+            axisTick: {
+                show: false
+            },
+            splitLine: {
+                show: true,
+                length: 10,
+                lineStyle: {
+                    color: '#051F54',
+                    width: 3,
+                    type: 'solid',
+                },
+            },
+            axisLabel: {
+                show: false
+            }
+        }];
+        var option = {
+            backgroundColor: '#000',
+            color: color,
+            title: {
+                text: '{a|' + int + '}\n\n{c|' + title + '}',
+                top: '43%',
+                textAlign: "center",
+                left: "49.5%",
+                textStyle: {
+
+                    rich: {
+                        a: {
+                            fontSize: 48,
+                            color: '#29EEF3'
+                        },
+                        b: {
+                            fontSize: 20,
+                            color: '#29EEF3',
+                            padding: [0, 0, 14, 0]
+                        },
+                        c: {
+                            fontSize: 19,
+                            color: '#eee',
+                            padding: [5, 0]
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                show: false
+            },
+            toolbox: {
+                show: false
+            },
+            series: seriesOption
+        }
+        myChart.setOption(option);
+
+        function _pie1() {
+            let dataArr = [];
+            for (var i = 0; i < 240; i++) {
+                if (i % 2 === 0) {
+                    dataArr.push({
+                        name: (i + 1).toString(),
+                        value: 3,
+                        itemStyle: {
+                            normal: {
+                                color: "rgb(126,190,200,0.5)",
+                                borderWidth: 0,
+                                borderColor: "rgba(0,0,0,0)"
+                            }
+                        }
+                    })
+                } else {
+                    dataArr.push({
+                        name: (i + 1).toString(),
+                        value: 3,
+                        itemStyle: {
+                            normal: {
+                                color: "rgba(0,0,0,0)",
+                                borderWidth: 0,
+                                borderColor: "rgba(0,0,0,0)"
+                            }
+                        }
+                    })
+                }
+
+            }
+            return dataArr
+
+        }
+
+        function _pie3() {
+            let dataArr = [];
+            for (var i = 0; i < 240; i++) {
+                if (i % 120 === 0) {
+                    dataArr.push({
+                        name: (i + 1).toString(),
+                        value: 1990,
+                        itemStyle: {
+                            normal: {
+                                color: "#fff",
+                                borderWidth: 0,
+                                borderColor: "rgba(0,0,0,0)"
+                            }
+                        }
+                    })
+                } else {
+                    dataArr.push({
+                        name: (i + 1).toString(),
+                        value: 3,
+                        itemStyle: {
+                            normal: {
+                                color: "rgba(0,0,0,0)",
+                                borderWidth: 0,
+                                borderColor: "rgba(0,0,0,0)"
+                            }
+                        }
+                    })
+                }
+
+            }
+            return dataArr
+
+        }
+    </script>
+</body>
+
+</html>
